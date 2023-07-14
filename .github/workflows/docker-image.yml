@@ -29,4 +29,4 @@ jobs:
         port: 22
         script: |
           sudo docker pull oussama4/reactjs_image:${{ github.run_number }}
-          sudo docker run -d --name my-container oussama4/reactjs_image:${{ github.run_number }}
+          sudo docker run -d --name my-container -p 3000:3000 oussama4/reactjs_image:${{ github.run_number }}
