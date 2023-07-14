@@ -20,3 +20,13 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
         docker push oussama4/reactjs_image:${{ github.run_number }}
+    - name: Deploy to virtual machine
+      uses: appleboy/ssh-action@master
+      with:
+        host: 20.51.236.83
+        username: azureuser
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          docker pull oussama4/reactjs_image
+          docker run -d --name my-container oussama4/reactjs_image
