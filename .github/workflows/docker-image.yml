@@ -15,8 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file docker/local/Dockerfile --tag reactjs_image:${{ github.run_number }}
+      run: docker build . --file docker/local/Dockerfile --tag oussama4/reactjs_image:${{ github.run_number }}
     - name: Push the Docker image to DockerHub
       run: |
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-        docker push reactjs_image:${{ github.run_number }}
+        docker push oussama4/reactjs_image:${{ github.run_number }}
