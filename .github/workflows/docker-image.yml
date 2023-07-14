@@ -28,5 +28,5 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          docker pull oussama4/reactjs_image:${{ github.run_number }}
-          docker run -d --name my-container oussama4/reactjs_image:${{ github.run_number }}
+          sudo docker pull oussama4/reactjs_image:${{ github.run_number }}
+          sudo docker run -d --name my-container oussama4/reactjs_image:${{ github.run_number }}
