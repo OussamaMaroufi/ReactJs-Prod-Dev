@@ -12,10 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
-    - name: Set up Docker
-      uses: docker/setup-docker@v2
-
     - name: Build the Docker image
       run: docker build . --file docker/local/Dockerfile --tag oussama4/reactjs_image:${{ github.run_number }}
 
