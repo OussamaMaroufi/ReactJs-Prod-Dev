@@ -7,19 +7,23 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: Set up Docker
+      uses: docker/setup-docker@v2
+
     - name: Build the Docker image
       run: docker build . --file docker/local/Dockerfile --tag oussama4/reactjs_image:${{ github.run_number }}
+
     - name: Push the Docker image to DockerHub
       run: |
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
         docker push oussama4/reactjs_image:${{ github.run_number }}
+
     - name: Deploy to virtual machine
       uses: appleboy/ssh-action@master
       with:
@@ -28,5 +32,5 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          docker pull oussama4/reactjs_image
-          docker run -d --name my-container oussama4/reactjs_image
+          docker pull oussama4/reactjs_image:${{ github.run_number }}
+          docker run -d --name my-container oussama4/reactjs_image:${{ github.run_number }}
